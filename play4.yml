@@ -1,0 +1,35 @@
+---
+- hosts: all
+  become: yes
+  vars:
+    tomcat_user: tomcat
+    tomcat_password: tomcat
+  tasks: 
+    - name: update ubuntu packages and install tomcat8
+      package:
+        name: apache2
+        update_cache: yes
+        state: present
+    - name: install tomcat8
+      apt: 
+        name: tomcat8
+        state: present
+    - name: create a group and users for tomcat8
+      group:
+        name: admin
+        state: present
+
+      users:
+        name: "{{ tomcat_user, tomcat_password }}"
+        state: present  
+
+    - name: install php and other 
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - libapache2-mod-php
+        - php-mysql
+ 
+        
+       

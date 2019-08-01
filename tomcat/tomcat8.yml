@@ -1,0 +1,23 @@
+---
+- hosts: all
+  become: yes
+  vars:
+    tomcat_version: tomcat8
+    tomcat_user: admin
+    tomcat_password: password
+  tasks:
+    - name: update ubuntu packages
+      package: 
+        update_cache: yes
+    - debug: 
+       msg: updating ubuntu 18.04 packages
+    - name: tomcat8 installtion 
+      package: 
+        name: "{{ tomcat_version}}"
+        state: present
+      notify: restart tomcat8
+  handlers:
+    - name: restart tomcat8
+      service: 
+          name: tomcat8
+          state: restarted

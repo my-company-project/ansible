@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes 
+  tasks:  
+  - name: download the file gameoflife.war to tomcat8
+    get_uri:
+      uri: https://github.com/srinivas-reddy-mula/warfiles/blob/master/gameoflife.war
+      dest: var/lib/tomcat8/webapps/
+        
+             
+             
+             
+             
+             .  
